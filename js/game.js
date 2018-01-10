@@ -1,3 +1,6 @@
+let game = document.querySelector('.game');
+OnLoad();
+
 const holes = document.querySelectorAll('.hole');
 const moles = document.querySelectorAll('.mole');
 let btn = document.querySelector('.play');
@@ -7,8 +10,21 @@ let kicks = 0;
 let timeBlock = document.querySelector('.timerBlock');
 let countSec = 0;
 
+
+function OnLoad() {
+    let value = window.location.href.split("?")[1].split("=")[1];
+    for (let i = 0; i < value; i++) {
+        let hole = `
+        <div class="hole">
+            <div class="mole"></div>
+        </div>
+        `;
+        game.insertAdjacentHTML('beforeend', hole);
+    }
+}
+
 function startTraking() {
-     let id = setInterval(updateTimer, 1000);
+    let id = setInterval(updateTimer, 1000);
     setTimeout(function(){countSec = 0;
     clearInterval(id)}, 30000);
 }
@@ -43,6 +59,7 @@ function randomHole(holes) {
 function showMole() {
     const time = randomTime(400, 1000);
     const hole = randomHole(holes);
+    console.log(hole);
     hole.childNodes[1].classList.remove('dead-mole');
     hole.classList.add('up');
     setTimeout( () => {
